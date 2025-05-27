@@ -22,8 +22,8 @@ export class NotificationsController {
 
 			const query = request.query as {
 				page?: string
+				read?: string
 				limit?: string
-				date?: string
 			}
 
 			const page = Number(query.page ?? env.INITIAL_DATA_OFFSET)
