@@ -1,7 +1,13 @@
 import { z } from 'zod'
 
 export const getNotificationsFiltersQuerySchema = z.object({
-	read: z.boolean().optional(),
+	read: z
+		.preprocess((val) => {
+			if (val === 'true') return true
+			if (val === 'false') return false
+			return val
+		}, z.boolean())
+		.optional(),
 })
 
 export const updateNotificationsBodySchema = z.object({
