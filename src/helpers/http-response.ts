@@ -18,14 +18,14 @@ export function ok<T>(
 	message = 'Operação realizada com sucesso.',
 ) {
 	return reply.status(200).send({
-		success: false,
+		success: true,
 		body: { message, payload },
 	})
 }
 
 export function created<T>(reply: FastifyReply, payload: T, message = 'Recurso criado com sucesso.') {
 	return reply.status(201).send({
-		success: false,
+		success: true,
 		body: { message, payload },
 	})
 }
