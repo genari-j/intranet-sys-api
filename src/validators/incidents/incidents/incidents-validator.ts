@@ -1,5 +1,13 @@
 import { z } from 'zod'
 
+export const getIncidentsFiltersQuerySchema = z.object({
+	code: z.number().optional(),
+	status_id: z.string().optional(),
+	priority_id: z.string().optional(),
+	assigned_id: z.string().optional(),
+	created_at: z.date().optional(),
+})
+
 export const createIncidentsBodySchema = z.object({
 	title: z.string().min(1, 'Título inválido'),
 	description: z.string().min(1, 'Descrição inválida'),
