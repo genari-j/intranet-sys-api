@@ -1,4 +1,5 @@
 export * from './human-resources/points/points-interface'
+export * from './incidents/incidents/incidents-interface'
 export * from './intranet-sys/addresses/addresses-interface'
 export * from './intranet-sys/departments/departments-interface'
 export * from './intranet-sys/news/news-interface'
