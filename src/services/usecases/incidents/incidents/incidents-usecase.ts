@@ -36,7 +36,6 @@ export class IncidentsService {
 		avatars,
 	}: CreateIncidentsParams) {
 		const avatarFileNames: string[] = []
-		// TODO: Ainda falta criar o CODE dinâmico
 
 		if (avatars && avatars.length > 0) {
 			for (const avatar of avatars) {
@@ -70,8 +69,11 @@ export class IncidentsService {
 			})
 			if (!category) throw new Error('A Categoria informada não existe.')
 
+			// TODO: Encontrar forma de cadastrar novamente em casos de erros por requisições simultâneas
+			const generateCode = (await tx.incident.count()) + 1
+
 			const incidentPayload: CreateIncidentsBody = {
-				code: KKKKKKKKKKKKK, // TODO: Criar dinâmico
+				code: generateCode,
 				title: title,
 				description: description,
 				register_by: user_id,
