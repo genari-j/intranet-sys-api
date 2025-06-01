@@ -31,9 +31,44 @@ export type CreateIncidentsBody = Omit<
 	'id' | 'assigned_id' | 'deadline' | 'active' | 'created_at' | 'updated_at' | 'deleted_at'
 >
 
+export type IncidentsWithFKeyResponse = Prisma.IncidentGetPayload<{
+	include: {
+		priority: {
+			select: {
+				id: true
+				name: true
+			}
+		}
+		status: {
+			select: {
+				id: true
+				name: true
+			}
+		}
+		user: {
+			select: {
+				id: true
+				name: true
+			}
+		}
+	}
+}>
+
 export type IncidentWithFKeyResponse = Prisma.IncidentGetPayload<{
 	include: {
-		register: {
+		priority: {
+			select: {
+				id: true
+				name: true
+			}
+		}
+		status: {
+			select: {
+				id: true
+				name: true
+			}
+		}
+		user: {
 			select: {
 				id: true
 				name: true
@@ -45,13 +80,13 @@ export type IncidentWithFKeyResponse = Prisma.IncidentGetPayload<{
 				name: true
 			}
 		}
-		priority: {
+		department: {
 			select: {
 				id: true
 				name: true
 			}
 		}
-		department: {
+		register: {
 			select: {
 				id: true
 				name: true
@@ -70,24 +105,14 @@ export type IncidentWithFKeyResponse = Prisma.IncidentGetPayload<{
 				description: true
 			}
 		}
-		status: {
-			select: {
-				id: true
-				name: true
-			}
-		}
-		user: {
-			select: {
-				id: true
-				name: true
-			}
-		}
 	}
 }>
 
 export interface GetIncidentsResponse {
-	data: IncidentWithFKeyResponse[]
+	data: IncidentsWithFKeyResponse[]
 	total: number
 	pages: number
 	currentPage: number
 }
+
+export type GetIncidentResponse = IncidentWithFKeyResponse
