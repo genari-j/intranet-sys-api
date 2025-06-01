@@ -10,11 +10,12 @@ class Repository extends RestRepository {
 		take: number,
 		filters: GetIncidentsFilters,
 		department_id: string,
+		isAdmin: boolean,
 	): Promise<GetIncidentsResponse> {
 		const where = {
-			department_id,
 			active: true,
 			deleted_at: null,
+			...(isAdmin ? {} : { department_id }),
 			...filters,
 		}
 
@@ -22,13 +23,8 @@ class Repository extends RestRepository {
 			where,
 			orderBy: { created_at: 'desc' },
 			include: {
-				category: { select: { id: true, name: true } },
 				priority: { select: { id: true, name: true } },
 				status: { select: { id: true, name: true } },
-				department: { select: { id: true, name: true } },
-				register: { select: { id: true, name: true } },
-				incidentLogs: { select: { id: true, title: true, description: true } },
-				incidentAvatars: { select: { id: true, avatar: true } },
 				user: { select: { id: true, name: true } },
 			},
 			skip,
