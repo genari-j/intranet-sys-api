@@ -1,4 +1,4 @@
-import type { GetIncidentsFilters, GetIncidentsResponse } from '~/@types/index'
+import type { GetIncidentsFilters, GetIncidentsResponse, GetIncidentResponse } from '~/@types/index'
 
 export interface IncidentsInterfaceRepository {
 	findAllIncidents(
@@ -6,5 +6,7 @@ export interface IncidentsInterfaceRepository {
 		limit: number,
 		filters: GetIncidentsFilters,
 		user_id: string,
+		isAdmin: boolean,
 	): Promise<GetIncidentsResponse>
+	findIncidentById(id: string): Promise<GetIncidentResponse | null>
 }
