@@ -2,7 +2,7 @@ import prismaClient from '~/config/prisma-client'
 
 import { RestRepository } from '~/models/repositories/index'
 
-import type { GetIncidentsFilters, GetIncidentsResponse } from '~/@types/index'
+import type { GetIncidentsFilters, GetIncidentsResponse, GetIncidentResponse } from '~/@types/index'
 
 class Repository extends RestRepository {
 	async findAllIncidents(
@@ -41,6 +41,23 @@ class Repository extends RestRepository {
 			pages: Math.ceil(total / take),
 			currentPage: Math.floor(skip / take) + 1,
 		}
+	}
+
+	async findIncidentById(id: string): Promise<GetIncidentResponse | null> {
+		const query = await prismaClient.incident.findFirst({
+			where: { id },
+			include: {
+				category: { select: { id: true, name: true } },
+				department: { select: { id: true, name: true } },
+				priority: { select: { id: true, name: true } },
+				register: { select: { id: true, name: true } },
+				status: { select: { id: true, name: true } },
+				user: { select: { id: true, name: true } },
+				incidentAvatars: { select: { id: true, avatar: true } },
+				incidentLogs: { select: { id: true, title: true, description: true, created_at: true } },
+			},
+		})
+		return query
 	}
 }
 
