@@ -1,5 +1,9 @@
 import { z } from 'zod'
 
+export const incidentsParamsSchema = z.object({
+	id: z.string().min(1, 'ID inválido'),
+})
+
 export const getIncidentsFiltersQuerySchema = z.object({
 	code: z.number().optional(),
 	status_id: z.string().optional(),
