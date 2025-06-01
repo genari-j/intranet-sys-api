@@ -12,6 +12,7 @@ const controller = new IncidentsController(IncidentsRepository)
 
 const incidentsRoutes: FastifyPluginAsync = async (fastify: FastifyInstance) => {
 	fastify.get('/incidents', { preHandler: [authMiddleware] }, controller.getAll.bind(controller))
+	fastify.get('/incidents/:id', controller.getById.bind(controller))
 
 	fastify.post(
 		'/incidents',
