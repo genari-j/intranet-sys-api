@@ -17,7 +17,6 @@ export type UserBaseResponse = {
 	contact: string | null
 	department_id: number
 	address_id: number
-	profile_id: number
 	active: boolean
 	avatar: string | null
 	created_at: Date
@@ -38,11 +37,6 @@ export type UserWithFKeyResponse = Prisma.UserGetPayload<{
 	include: {
 		department: true
 		address: true
-		profile: {
-			include: {
-				profilePermissions: true
-			}
-		}
 	}
 }>
 
