@@ -7,7 +7,7 @@ import DepartmentsRepository from './intranet-sys/departments/departments-reposi
 import NewsRepository from './intranet-sys/news/news-repository'
 import NewsFlagRepository from './intranet-sys/news-flag/news-flag-repository'
 import NotificationsRepository from './intranet-sys/notifications/notifications-repository'
-import ProfilesRepository from './intranet-sys/profiles/profiles-repository'
+import PermissionsRepository from './intranet-sys/permissions/permissions-repository'
 import SigninHistoryRepository from './intranet-sys/signin-logs/signin-logs-repository'
 
 export {
@@ -20,6 +20,6 @@ export {
 	NewsRepository,
 	NewsFlagRepository,
 	NotificationsRepository,
-	ProfilesRepository,
+	PermissionsRepository,
 	SigninHistoryRepository,
 }
