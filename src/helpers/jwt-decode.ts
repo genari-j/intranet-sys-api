@@ -11,16 +11,24 @@ export const decodeRequestAuthToken = async (token: string | undefined) => {
 		if (typeof result === 'object' && result !== null && 'id' in result) {
 			const user = await prismaClient.user.findFirst({
 				where: { id: result.id },
-				include: {
-					profile: {
-						include: {
-							profilePermissions: true,
-						},
-					},
-				},
+			})
+			const permissions = await prismaClient.userPermission.findMany({
+				where: { user_id: result.id },
 			})
 
-			return user
+			const findedUser = {
+				id: user?.id,
+				name: user?.name,
+				email: user?.email,
+				registration: user?.registration,
+				contact: user?.contact,
+				department_id: user?.department_id,
+				address_id: user?.address_id,
+				manager_id: user?.manager_id,
+				permissions,
+			}
+
+			return findedUser
 		}
 	} catch (err) {
 		console.log(`Algo saiu como não esperado: ${err}`)
