@@ -5,7 +5,7 @@ import {
 	UsersRepository,
 	AddressesRepository,
 	DepartmentsRepository,
-	ProfilesRepository,
+	PermissionsRepository,
 	SigninHistoryRepository,
 } from '~/models/repositories/index'
 
@@ -15,15 +15,13 @@ const controller = new UsersController(
 	UsersRepository,
 	AddressesRepository,
 	DepartmentsRepository,
-	ProfilesRepository,
+	PermissionsRepository,
 	SigninHistoryRepository,
 )
 
 const usersRoutes: FastifyPluginAsync = async (fastify: FastifyInstance) => {
 	fastify.post('/signin', controller.signIn.bind(controller))
 
-	// TODO: Testar o middleware de permissões - "permMiddleware"
-	// fastify.get('/users', { preHandler: [authMiddleware, permissionMiddleware({ requiredRole: 'admin' })] }, controller.getAll.bind(controller))
 	fastify.get('/users/:id', { preHandler: [authMiddleware] }, controller.getById.bind(controller))
 }
 
