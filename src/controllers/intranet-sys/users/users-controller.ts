@@ -7,7 +7,7 @@ import type {
 	UsersInterfaceRepository,
 	AddressesInterfaceRepository,
 	DepartmentsInterfaceRepository,
-	ProfilesInterfaceRepository,
+	PermissionsInterfaceRepository,
 	SigninLogsInterfaceRepository,
 } from '~/models/interfaces/index'
 
@@ -20,20 +20,20 @@ export class UsersController {
 	private readonly usersRepository: UsersInterfaceRepository
 	private readonly addressesRepository: AddressesInterfaceRepository
 	private readonly departmentsRepository: DepartmentsInterfaceRepository
-	private readonly profilesRepository: ProfilesInterfaceRepository
+	private readonly permissionsRepository: PermissionsInterfaceRepository
 	private readonly signinHistoryRepository: SigninLogsInterfaceRepository
 
 	constructor(
 		usersRepository: UsersInterfaceRepository,
 		addressesRepository: AddressesInterfaceRepository,
 		departmentsRepository: DepartmentsInterfaceRepository,
-		profilesRepository: ProfilesInterfaceRepository,
+		permissionsRepository: PermissionsInterfaceRepository,
 		signinHistoryRepository: SigninLogsInterfaceRepository,
 	) {
 		this.usersRepository = usersRepository
 		this.addressesRepository = addressesRepository
 		this.departmentsRepository = departmentsRepository
-		this.profilesRepository = profilesRepository
+		this.permissionsRepository = permissionsRepository
 		this.signinHistoryRepository = signinHistoryRepository
 	}
 
@@ -49,7 +49,7 @@ export class UsersController {
 
 			const address = await this.addressesRepository.findOneBy('id', user.address_id)
 			const department = await this.departmentsRepository.findOneBy('id', user.department_id)
-			const profile = await this.profilesRepository.findProfileById(String(user.profile_id))
+			const permissions = await this.permissionsRepository.findPermissionsByUserId(user.id)
 
 			const token = jwt.sign(
 				{
@@ -74,19 +74,11 @@ export class UsersController {
 						name: department?.name,
 						active: department?.active,
 					},
-					profile: {
-						id: profile?.id,
-						name: profile?.name,
-						code: profile?.code,
-						description: profile?.description,
-						active: profile?.active,
-						permissions: profile?.profilePermissions.map((permission) => ({
-							id: permission?.id,
-							permission: permission?.permission,
-							description: permission?.description,
-							active: permission?.active,
-						})),
-					},
+					permissions: permissions?.map((permission) => ({
+						id: permission.permission.id,
+						name: permission.permission.name,
+						description: permission.permission.description,
+					})),
 					active: user.active,
 					avatar: user.avatar,
 					created_at: user.created_at,
@@ -113,6 +105,9 @@ export class UsersController {
 			const userById = await this.usersRepository.findUserById(id)
 			if (!userById) return notFound(reply, 'O usuário especificado não existe.')
 
+			const permissions = await this.permissionsRepository.findPermissionsByUserId(userById.id)
+			if (!permissions) return notFound(reply, 'Permissões não encontradas para o usuário especificado.')
+
 			const user = {
 				id: userById.id,
 				name: userById.name,
@@ -135,19 +130,11 @@ export class UsersController {
 					name: userById.department?.name,
 					active: userById.department?.active,
 				},
-				profile: {
-					id: userById.profile?.id,
-					name: userById.profile?.name,
-					code: userById.profile?.code,
-					description: userById.profile?.description,
-					active: userById.profile?.active,
-					permissions: userById.profile?.profilePermissions.map((permission) => ({
-						id: permission?.id,
-						permission: permission?.permission,
-						description: permission?.description,
-						active: permission?.active,
-					})),
-				},
+				permissions: permissions?.map((permission) => ({
+					id: permission.permission.id,
+					name: permission.permission.name,
+					description: permission.permission.description,
+				})),
 				active: userById.active,
 				avatar: userById.avatar,
 				created_at: userById.created_at,
