@@ -10,11 +10,6 @@ class Repository extends RestRepository {
 			include: {
 				department: true,
 				address: true,
-				profile: {
-					include: {
-						profilePermissions: true,
-					},
-				},
 			},
 		})
 		return query
