@@ -9,26 +9,36 @@ export const decodeRequestAuthToken = async (token: string | undefined) => {
 		const result = jwt.verify(bearerToken, env.APP_SECRET as string)
 
 		if (typeof result === 'object' && result !== null && 'id' in result) {
-			const user = await prismaClient.user.findFirst({
+			const userById = await prismaClient.user.findFirst({
 				where: { id: result.id },
 			})
 			const permissions = await prismaClient.userPermission.findMany({
-				where: { user_id: result.id },
+				where: {
+					user_id: result.id,
+				},
+				include: {
+					permission: {
+						select: {
+							id: true,
+							name: true,
+						},
+					},
+				},
 			})
 
-			const findedUser = {
-				id: user?.id,
-				name: user?.name,
-				email: user?.email,
-				registration: user?.registration,
-				contact: user?.contact,
-				department_id: user?.department_id,
-				address_id: user?.address_id,
-				manager_id: user?.manager_id,
+			const user = {
+				id: userById?.id,
+				name: userById?.name,
+				email: userById?.email,
+				registration: userById?.registration,
+				contact: userById?.contact,
+				department_id: userById?.department_id,
+				address_id: userById?.address_id,
+				manager_id: userById?.manager_id,
 				permissions,
 			}
 
-			return findedUser
+			return user
 		}
 	} catch (err) {
 		console.log(`Algo saiu como não esperado: ${err}`)
