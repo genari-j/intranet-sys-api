@@ -1,6 +1,6 @@
 import type { FastifyInstance, FastifyPluginAsync } from 'fastify'
 
-import { IncidentsController } from '~/controllers/index'
+import { IncidentByIdController, CreateIncidentController, AllIncidentsController } from '~/controllers/index'
 import { IncidentsRepository } from '~/models/repositories/index'
 
 import { authMiddleware } from '~/middlewares/index'
@@ -8,16 +8,18 @@ import { createStorage, incidentsPath } from '~/helpers/index'
 
 const upload = createStorage(incidentsPath)
 
-const controller = new IncidentsController(IncidentsRepository)
+const incidentByIdController = new IncidentByIdController(IncidentsRepository)
+const createController = new CreateIncidentController()
+const getAllController = new AllIncidentsController(IncidentsRepository)
 
 const incidentsRoutes: FastifyPluginAsync = async (fastify: FastifyInstance) => {
-	fastify.get('/incidents', { preHandler: [authMiddleware] }, controller.getAll.bind(controller))
-	fastify.get('/incidents/:id', controller.getById.bind(controller))
+	fastify.get('/incidents', { preHandler: [authMiddleware] }, getAllController.getAll.bind(getAllController))
+	fastify.get('/incidents/:id', incidentByIdController.getById.bind(incidentByIdController))
 
 	fastify.post(
 		'/incidents',
 		{ preHandler: [authMiddleware, upload.array('avatar')] },
-		controller.create.bind(controller),
+		createController.create.bind(createController),
 	)
 }
 

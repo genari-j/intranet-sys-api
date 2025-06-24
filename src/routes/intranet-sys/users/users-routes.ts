@@ -1,6 +1,6 @@
 import type { FastifyInstance, FastifyPluginAsync } from 'fastify'
 
-import { UsersController } from '~/controllers/index'
+import { UserByIdController, SignInController } from '~/controllers/index'
 import {
 	UsersRepository,
 	AddressesRepository,
@@ -11,7 +11,9 @@ import {
 
 import { authMiddleware } from '~/middlewares/index'
 
-const controller = new UsersController(
+const userByIdController = new UserByIdController(UsersRepository, PermissionsRepository)
+
+const signInController = new SignInController(
 	UsersRepository,
 	AddressesRepository,
 	DepartmentsRepository,
@@ -20,9 +22,9 @@ const controller = new UsersController(
 )
 
 const usersRoutes: FastifyPluginAsync = async (fastify: FastifyInstance) => {
-	fastify.post('/signin', controller.signIn.bind(controller))
+	fastify.post('/signin', signInController.signIn.bind(signInController))
 
-	fastify.get('/users/:id', { preHandler: [authMiddleware] }, controller.getById.bind(controller))
+	fastify.get('/users/:id', { preHandler: [authMiddleware] }, userByIdController.getById.bind(userByIdController))
 }
 
 export default usersRoutes
