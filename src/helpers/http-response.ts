@@ -1,6 +1,6 @@
 import type { FastifyReply } from 'fastify'
 
-interface PaginationMeta {
+interface Pagination {
 	total: number
 	limit: number
 	pages: number
@@ -9,7 +9,7 @@ interface PaginationMeta {
 
 interface PaginatedPayload<T> {
 	data: T[]
-	pagination: PaginationMeta
+	pagination: Pagination
 }
 
 export function ok<T>(
