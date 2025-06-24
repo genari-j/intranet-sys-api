@@ -7,7 +7,7 @@
 		"dev": "tsx watch src/server.ts",
 		"start": "node dist/server.js",
 		"build": "rimraf ./dist && tsc",
-		"lint": "npx @biomejs/biome check --write"
+		"lint": "npx @biomejs/biome check"
 	},
 	"prisma": {
 		"seed": "tsx src/config/seeds/seeds.ts"
@@ -17,11 +17,22 @@
 	},
 	"keywords": [
 		"API",
-		"Rest",
-		"Restful",
-		"Typescript",
+		"REST",
+		"RESTful",
+		"TypeScript",
 		"Backend",
-		"Node"
+		"Node.js",
+		"Fastify",
+		"Prisma",
+		"Socket.io",
+		"Authentication",
+		"Authorization",
+		"Email",
+		"File Upload",
+		"TSX",
+		"Module Alias",
+		"Rimraf",
+		"Biome"
 	],
 	"author": "João Victor Genari",
 	"license": "ISC",
