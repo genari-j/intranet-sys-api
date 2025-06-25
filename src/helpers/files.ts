@@ -26,20 +26,14 @@ export const saveFile = async (oldPath: string, newPath: string) => {
 	})
 }
 
-export const staticNews: FastifyPluginAsync = async (fastify) => {
-	fastify.register(fastifyStatic, {
-		root: path.join(__dirname, '..', 'uploads', 'news'),
-		prefix: '/uploads/news',
-		decorateReply: false,
-	})
-}
-
-export const staticIncidents: FastifyPluginAsync = async (fastify) => {
-	fastify.register(fastifyStatic, {
-		root: path.join(__dirname, '..', 'uploads', 'incidents'),
-		prefix: '/uploads/incidents',
-		decorateReply: false,
-	})
+export const defineStaticFolders = (folderName: string): FastifyPluginAsync => {
+	return async (fastify) => {
+		fastify.register(fastifyStatic, {
+			root: path.join(__dirname, '..', 'uploads', folderName),
+			prefix: `/uploads/${folderName}`,
+			decorateReply: false,
+		})
+	}
 }
 
 export const newsPath = './src/uploads/news'

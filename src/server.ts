@@ -9,7 +9,7 @@ import { makeAppRoutes } from '~/routes/index'
 
 import { SocketService, NewsService } from '~/services/usecases/index'
 
-import { databaseHealth, staticNews, staticIncidents } from '~/helpers/index'
+import { databaseHealth, defineStaticFolders } from '~/helpers/index'
 import { env } from '~/validators/index'
 
 const app = fastify()
@@ -38,8 +38,8 @@ new NewsService(socketService)
 
 for (const route of makeAppRoutes(io)) app.register(route)
 
-app.register(staticNews)
-app.register(staticIncidents)
+app.register(defineStaticFolders('news'))
+app.register(defineStaticFolders('incidents'))
 
 app.listen({ port: Number(env.APP_PORT) }).then(async () => {
 	await databaseHealth()
