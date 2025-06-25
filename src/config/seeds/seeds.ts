@@ -1,7 +1,7 @@
-import { intranetSysSeeds } from './intranet-sys/seed'
-import { newsSeeds } from './news/seed'
 import { humanResourcesSeeds } from './human-resources/seed'
 import { incidentsSeeds } from './incidents/seed'
+import { intranetSysSeeds } from './intranet-sys/seed'
+import { newsSeeds } from './news/seed'
 
 async function execSeeds() {
 	/* ------------------ STARTING ------------------ */

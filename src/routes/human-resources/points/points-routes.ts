@@ -1,6 +1,6 @@
 import type { FastifyInstance, FastifyPluginAsync } from 'fastify'
 
-import { CreatePointController, AllPointsController } from '~/controllers/index'
+import { AllPointsController, CreatePointController } from '~/controllers/index'
 import { HumanResourcesPointsRepository } from '~/models/repositories/index'
 
 import { authMiddleware } from '~/middlewares/index'

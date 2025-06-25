@@ -1,4 +1,4 @@
-import type { GetDepartmentsResponse, DepartmentBaseResponse } from '~/@types/index'
+import type { DepartmentBaseResponse, GetDepartmentsResponse } from '~/@types/index'
 
 export interface DepartmentsInterfaceRepository {
 	findAllDepartments(): Promise<GetDepartmentsResponse>

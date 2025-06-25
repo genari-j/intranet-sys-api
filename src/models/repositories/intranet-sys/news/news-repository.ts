@@ -3,10 +3,10 @@ import prismaClient from '~/config/prisma-client'
 import { RestRepository } from '~/models/repositories/index'
 
 import type {
-	GetNewsResponse,
-	GetNewResponse,
 	BaseCategorizedNews,
+	GetNewResponse,
 	GetNewsFlagsResponse,
+	GetNewsResponse,
 	NewBaseResponse,
 } from '~/@types/index'
 

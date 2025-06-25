@@ -1,6 +1,6 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 
-import { type SocketService, NewsService } from '~/services/usecases/index'
+import { NewsService, type SocketService } from '~/services/usecases/index'
 
 import { created, internalError } from '~/helpers/index'
 import { createNewsBodySchema } from '~/validators/index'

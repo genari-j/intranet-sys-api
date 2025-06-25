@@ -2,7 +2,7 @@ import type { FastifyReply, FastifyRequest } from 'fastify'
 
 import { IncidentsService } from '~/services/usecases/index'
 
-import { decodeRequestAuthToken, unauthorized, created, internalError } from '~/helpers/index'
+import { created, decodeRequestAuthToken, internalError, unauthorized } from '~/helpers/index'
 import { createIncidentsBodySchema } from '~/validators/index'
 
 export class CreateIncidentController {

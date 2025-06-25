@@ -1,12 +1,12 @@
 import type { FastifyInstance, FastifyPluginAsync } from 'fastify'
 
-import { UserByIdController, SignInController } from '~/controllers/index'
+import { SignInController, UserByIdController } from '~/controllers/index'
 import {
-	UsersRepository,
 	AddressesRepository,
 	DepartmentsRepository,
 	PermissionsRepository,
 	SigninHistoryRepository,
+	UsersRepository,
 } from '~/models/repositories/index'
 
 import { authMiddleware } from '~/middlewares/index'

@@ -1,4 +1,4 @@
-import type { CreateAddressBody, AddressesBaseResponse } from '~/@types/index'
+import type { AddressesBaseResponse, CreateAddressBody } from '~/@types/index'
 
 export interface AddressesInterfaceRepository {
 	create(data: CreateAddressBody): Promise<AddressesBaseResponse>

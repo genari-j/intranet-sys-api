@@ -3,8 +3,8 @@ import path from 'node:path'
 
 import prismaClient from '~/config/prisma-client'
 
-import { cleanString, incidentsPath, saveFile } from '~/helpers/index'
 import type { CreateIncidentsBody } from '~/@types/index'
+import { cleanString, incidentsPath, saveFile } from '~/helpers/index'
 
 type Avatar = {
 	originalname: string

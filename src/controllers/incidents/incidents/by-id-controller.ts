@@ -2,7 +2,7 @@ import type { FastifyReply, FastifyRequest } from 'fastify'
 
 import type { IncidentsInterfaceRepository } from '~/models/interfaces/index'
 
-import { internalError, ok, notFound } from '~/helpers/index'
+import { internalError, notFound, ok } from '~/helpers/index'
 import { incidentsParamsSchema } from '~/validators/index'
 
 export class IncidentByIdController {

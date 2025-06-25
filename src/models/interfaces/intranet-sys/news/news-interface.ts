@@ -1,10 +1,10 @@
 import type {
 	CreateNewsBody,
-	UpdateNewsBody,
-	GetNewsResponse,
 	GetNewResponse,
-	NewBaseResponse,
 	GetNewsFlagsResponse,
+	GetNewsResponse,
+	NewBaseResponse,
+	UpdateNewsBody,
 } from '~/@types/index'
 
 interface NewsInterfaceRepository {

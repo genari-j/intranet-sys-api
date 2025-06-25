@@ -1,9 +1,9 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 
-import type { HumanResourcesPointsInterfaceRepository } from '~/models/interfaces/index'
 import type { GetPointsResponse } from '~/@types/index'
+import type { HumanResourcesPointsInterfaceRepository } from '~/models/interfaces/index'
 
-import { decodeRequestAuthToken, ok, created, unauthorized, internalError } from '~/helpers/index'
+import { created, decodeRequestAuthToken, internalError, ok, unauthorized } from '~/helpers/index'
 import { env, getHumanResourcesPointsFiltersQuerySchema } from '~/validators/index'
 
 export class AllPointsController {

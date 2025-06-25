@@ -1,7 +1,7 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 
-import type { NotificationsInterfaceRepository } from '~/models/interfaces/index'
 import type { GetNotificationsResponse } from '~/@types/index'
+import type { NotificationsInterfaceRepository } from '~/models/interfaces/index'
 
 import { decodeRequestAuthToken, internalError, ok, unauthorized } from '~/helpers/index'
 import { env, getNotificationsFiltersQuerySchema } from '~/validators/index'

@@ -1,9 +1,9 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 
-import type { HumanResourcesPointsInterfaceRepository } from '../../../models/interfaces/human-resources/points/points-interface'
 import type { PointBaseResponse, UpdatePointBody } from '~/@types/index'
+import type { HumanResourcesPointsInterfaceRepository } from '../../../models/interfaces/human-resources/points/points-interface'
 
-import { decodeRequestAuthToken, ok, created, unauthorized, fail, internalError } from '~/helpers/index'
+import { created, decodeRequestAuthToken, fail, internalError, ok, unauthorized } from '~/helpers/index'
 import { createOrUpdatePointBodySchema } from '~/validators/index'
 
 export class CreatePointController {

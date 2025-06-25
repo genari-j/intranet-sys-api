@@ -4,16 +4,16 @@ import bcryptjs from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
 import type {
-	UsersInterfaceRepository,
 	AddressesInterfaceRepository,
 	DepartmentsInterfaceRepository,
 	PermissionsInterfaceRepository,
 	SigninLogsInterfaceRepository,
+	UsersInterfaceRepository,
 } from '~/models/interfaces/index'
 
 import type { SignInTokenResponse } from '~/@types/index'
 
-import { internalError, unauthorized, ok } from '~/helpers/index'
+import { internalError, ok, unauthorized } from '~/helpers/index'
 import { env, signInBodySchema } from '~/validators/index'
 
 export class SignInController {

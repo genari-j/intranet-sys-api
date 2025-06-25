@@ -1,6 +1,6 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 
-import type { UsersInterfaceRepository, PermissionsInterfaceRepository } from '~/models/interfaces/index'
+import type { PermissionsInterfaceRepository, UsersInterfaceRepository } from '~/models/interfaces/index'
 
 import type { GetUserResponse } from '~/@types/index'
 

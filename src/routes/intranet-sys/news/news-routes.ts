@@ -3,16 +3,16 @@ import type { FastifyInstance, FastifyPluginAsync } from 'fastify'
 import {
 	AllFlagsController,
 	AllNewsController,
-	NewsByIdController,
 	CreateNewsController,
+	NewsByIdController,
 	UpdateNewsController,
 } from '~/controllers/index'
 import { NewsRepository } from '~/models/repositories/index'
 
-import { authMiddleware } from '~/middlewares/index'
-import { createStorage, newsPath } from '~/helpers/index'
-import { SocketService } from '~/services/usecases/index'
 import type { Server } from 'socket.io'
+import { createStorage, newsPath } from '~/helpers/index'
+import { authMiddleware } from '~/middlewares/index'
+import { SocketService } from '~/services/usecases/index'
 
 const upload = createStorage(newsPath)
 
