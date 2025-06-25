@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 import prismaClient from '~/config/prisma-client'
 
-import { env, bearerTokenSchema } from '~/validators/index'
+import { bearerTokenSchema, env } from '~/validators/index'
 
 export const decodeRequestAuthToken = async (token: string | undefined) => {
 	try {

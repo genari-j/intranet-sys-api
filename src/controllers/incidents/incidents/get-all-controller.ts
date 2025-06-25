@@ -2,8 +2,8 @@ import type { FastifyReply, FastifyRequest } from 'fastify'
 
 import type { IncidentsInterfaceRepository } from '~/models/interfaces/index'
 
-import { decodeRequestAuthToken, unauthorized, internalError, ok } from '~/helpers/index'
 import type { GetIncidentsResponse } from '~/@types/index'
+import { decodeRequestAuthToken, internalError, ok, unauthorized } from '~/helpers/index'
 import { env, getIncidentsFiltersQuerySchema } from '~/validators/index'
 
 export class AllIncidentsController {

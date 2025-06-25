@@ -1,13 +1,13 @@
-import fastify from 'fastify'
 import cors from '@fastify/cors'
 import multipart from '@fastify/multipart'
+import fastify from 'fastify'
 
 if (process.env.npm_lifecycle_event === 'start') require('module-alias/register')
 
 import { Server as SocketIOServer } from 'socket.io'
 import { makeAppRoutes } from '~/routes/index'
 
-import { SocketService, NewsService } from '~/services/usecases/index'
+import { NewsService, SocketService } from '~/services/usecases/index'
 
 import { databaseHealth, defineStaticFolders } from '~/helpers/index'
 import { env } from '~/validators/index'

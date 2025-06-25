@@ -1,5 +1,5 @@
-import type { FastifyPluginAsync } from 'fastify'
 import fastifyStatic from '@fastify/static'
+import type { FastifyPluginAsync } from 'fastify'
 import multer from 'fastify-multer'
 
 import fs from 'node:fs'

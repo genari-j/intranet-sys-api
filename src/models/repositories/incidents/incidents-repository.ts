@@ -2,7 +2,7 @@ import prismaClient from '~/config/prisma-client'
 
 import { RestRepository } from '~/models/repositories/index'
 
-import type { GetIncidentsFilters, GetIncidentsResponse, GetIncidentResponse } from '~/@types/index'
+import type { GetIncidentResponse, GetIncidentsFilters, GetIncidentsResponse } from '~/@types/index'
 
 class Repository extends RestRepository {
 	async findAllIncidents(

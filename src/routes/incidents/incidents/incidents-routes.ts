@@ -1,10 +1,10 @@
 import type { FastifyInstance, FastifyPluginAsync } from 'fastify'
 
-import { IncidentByIdController, CreateIncidentController, AllIncidentsController } from '~/controllers/index'
+import { AllIncidentsController, CreateIncidentController, IncidentByIdController } from '~/controllers/index'
 import { IncidentsRepository } from '~/models/repositories/index'
 
-import { authMiddleware } from '~/middlewares/index'
 import { createStorage, incidentsPath } from '~/helpers/index'
+import { authMiddleware } from '~/middlewares/index'
 
 const upload = createStorage(incidentsPath)
 

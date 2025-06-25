@@ -2,8 +2,8 @@ import type { FastifyReply, FastifyRequest } from 'fastify'
 
 import type { NewsInterfaceRepository } from '~/models/interfaces/index'
 
-import { internalError, ok } from '~/helpers/index'
 import type { MappedNews } from '~/@types/index'
+import { internalError, ok } from '~/helpers/index'
 
 export class AllNewsController {
 	private readonly newsRepository: NewsInterfaceRepository

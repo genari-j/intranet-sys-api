@@ -1,4 +1,4 @@
-import type { CreateUserBody, UserBaseResponse, GetUserResponse } from '~/@types/index'
+import type { CreateUserBody, GetUserResponse, UserBaseResponse } from '~/@types/index'
 
 interface UsersInterfaceRepository {
 	create(data: CreateUserBody): Promise<UserBaseResponse>

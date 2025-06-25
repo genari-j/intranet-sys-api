@@ -1,4 +1,4 @@
-import type { GetIncidentsFilters, GetIncidentsResponse, GetIncidentResponse } from '~/@types/index'
+import type { GetIncidentResponse, GetIncidentsFilters, GetIncidentsResponse } from '~/@types/index'
 
 export interface IncidentsInterfaceRepository {
 	findAllIncidents(

@@ -1,7 +1,7 @@
 import prismaClient from '~/config/prisma-client'
 
-import { RestRepository } from '~/models/repositories/index'
 import type { GetUserResponse } from '~/@types/index'
+import { RestRepository } from '~/models/repositories/index'
 
 class Repository extends RestRepository {
 	async findUserById(id: string): Promise<GetUserResponse | null> {

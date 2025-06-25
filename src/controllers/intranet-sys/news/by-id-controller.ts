@@ -2,7 +2,7 @@ import type { FastifyReply, FastifyRequest } from 'fastify'
 
 import type { NewsInterfaceRepository } from '~/models/interfaces/index'
 
-import { internalError, ok, notFound } from '~/helpers/index'
+import { internalError, notFound, ok } from '~/helpers/index'
 import { newsParamsSchema } from '~/validators/index'
 
 export class NewsByIdController {
