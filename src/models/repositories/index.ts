@@ -1,3 +1,4 @@
+import { RestRepository } from './rest-repository'
 import HumanResourcesPointsRepository from './human-resources/points/points-repository'
 import IncidentsRepository from './incidents/incidents-repository'
 import AddressesRepository from './intranet-sys/addresses/addresses-repository'
@@ -8,7 +9,6 @@ import NotificationsRepository from './intranet-sys/notifications/notifications-
 import PermissionsRepository from './intranet-sys/permissions/permissions-repository'
 import SigninHistoryRepository from './intranet-sys/signin-logs/signin-logs-repository'
 import UsersRepository from './intranet-sys/users/users-repository'
-import { RestRepository } from './rest-repository'
 
 export {
 	RestRepository,
