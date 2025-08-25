@@ -7,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// General System
+// GENERAL SYSTEMS
 model Department {
   id         String    @id @unique @default(uuid())
   name       String
@@ -68,6 +68,7 @@ model User {
   subordinates   User[]                @relation("UserToUser")
   Notification   Notification[]
   UserPermission UserPermission[]
+  IncidentLog    IncidentLog[]
 
   @@map("users")
 }
@@ -125,7 +126,7 @@ model Notification {
   @@map("notifications")
 }
 
-// News System
+// NEWS SYSTEM
 model NewsFlag {
   id          String    @id @unique @default(uuid())
   name        String
@@ -155,7 +156,7 @@ model News {
   @@map("news")
 }
 
-// Human Resources System
+// HUMAN RESOURCES SYSTEM
 model HumanResourcesPoint {
   id           String    @id @unique @default(uuid())
   user         User      @relation(fields: [user_id], references: [id])
@@ -172,7 +173,7 @@ model HumanResourcesPoint {
   @@map("human_resources_points")
 }
 
-// Incidents System
+// INCIDENTS SYSTEM
 model IncidentPriority {
   id          String    @id @unique @default(uuid())
   name        String    @unique
@@ -219,8 +220,8 @@ model IncidentCategory {
 
 model Incident {
   id            String           @id @unique @default(uuid())
-  code          Int              @unique
-  title         String           @unique
+  code          String           @unique
+  title         String
   description   String           @db.Text
   register      User             @relation("RegisterByUser", fields: [register_by], references: [id])
   register_by   String
@@ -263,8 +264,11 @@ model IncidentLog {
   id          String    @id @unique @default(uuid())
   incident    Incident  @relation(fields: [incident_id], references: [id])
   incident_id String
-  title       String
-  description String    @db.Text
+  field       String
+  old_value   String?
+  new_value   String?
+  user        User      @relation(fields: [user_id], references: [id])
+  user_id     String
   active      Boolean   @default(true)
   created_at  DateTime  @default(now())
   updated_at  DateTime  @updatedAt

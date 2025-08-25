@@ -54,7 +54,9 @@ export class NewsService {
 	async createNews({ title, description, avatar, flag_name }: CreateNewsParams) {
 		const finalFileName = `${Date.now()}-${cleanString(avatar.originalname)}`
 
-		if (existsSync(`${newsPath}/${avatar?.filename}`)) throw new Error('Outro arquivo com esse nome já existe.')
+		if (existsSync(`${newsPath}/${avatar?.filename}`)) {
+			throw new Error('Outro arquivo com esse nome já existe.')
+		}
 
 		const createdNews = await prismaClient.$transaction(async (tx) => {
 			const flag = await tx.newsFlag.findFirst({

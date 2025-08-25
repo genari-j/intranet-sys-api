@@ -340,6 +340,11 @@ export async function intranetSysSeeds() {
 			name: 'Desativar chamados',
 			description: 'Permite desativar chamados registrados.',
 		},
+		{
+			id: '512dd8c8-826e-4a94-a3f7-8a2633e144d2',
+			name: 'Visualizar gerenciamento de perfis',
+			description: 'Permite visualizar a grade de Colaboradores registrados no sistema.',
+		},
 	]
 	await checkingDBToInsertSeeds(permissions, 'permission', 'name')
 	console.table('Permissões inseridas com sucesso.')
@@ -586,6 +591,11 @@ export async function intranetSysSeeds() {
 			id: 'a97d0c55-b578-46db-82aa-2203ad6e5e9f',
 			user_id: '474b3e7c-9138-48d5-8cc3-a2bd444828b6',
 			permission_id: 'd480e44d-a243-4359-a21c-c9c377318387',
+		},
+		{
+			id: 'b0d436fd-0e00-43bb-94de-17d8a45b74d5',
+			user_id: '474b3e7c-9138-48d5-8cc3-a2bd444828b6',
+			permission_id: '512dd8c8-826e-4a94-a3f7-8a2633e144d2',
 		},
 		// GESTOR DE ÁREA
 		{

@@ -287,7 +287,7 @@ export async function incidentsSeeds() {
 	const incidents = [
 		{
 			id: '6135cfe0-5e59-459f-b67c-196c136ed85f',
-			code: 1,
+			code: '#T6565AXC',
 			title: 'Catraca danificada',
 			description: 'Com o movimento de pesssoas na entrada principal, a catraca 3 parou de funcionar',
 			register_by: '474b3e7c-9138-48d5-8cc3-a2bd444828b6',
@@ -298,7 +298,7 @@ export async function incidentsSeeds() {
 		},
 		{
 			id: 'fddc13a6-351a-4119-adfc-86d88b8f9223',
-			code: 2,
+			code: '#T87H5ACX',
 			title: 'Cancelar vale transporte',
 			description: 'Gostaria de solicitar o cancelamento do meu vale transporte',
 			register_by: 'a413fac3-3695-4fc5-afc4-15bb309d30da',
@@ -324,20 +324,4 @@ export async function incidentsSeeds() {
 	]
 	await checkingDBToInsertSeeds(incidentAvatars, 'incidentAvatar', 'avatar')
 	console.table('Avatares de Incidentes inseridos com sucesso.')
-
-	/* ------------------ INCIDENT LOGS ------------------ */
-	const incidentsLogs = [
-		{
-			incident_id: '6135cfe0-5e59-459f-b67c-196c136ed85f',
-			title: 'Aberto',
-			description: 'Um chamado "Catraca danificada" foi registrado',
-		},
-		{
-			incident_id: 'fddc13a6-351a-4119-adfc-86d88b8f9223',
-			title: 'Aberto',
-			description: 'Um chamado "Cancelar vale transporte" foi registrado',
-		},
-	]
-	await checkingDBToInsertSeeds(incidentsLogs, 'incidentLog', 'description')
-	console.table('Log de Incidentes inseridos com sucesso.')
 }

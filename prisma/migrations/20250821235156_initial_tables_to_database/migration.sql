@@ -1,36 +1,4 @@
 -- CreateTable
-CREATE TABLE `profiles` (
-    `id` VARCHAR(191) NOT NULL,
-    `name` VARCHAR(191) NOT NULL,
-    `code` VARCHAR(191) NOT NULL,
-    `description` TEXT NOT NULL,
-    `active` BOOLEAN NOT NULL DEFAULT true,
-    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `updated_at` DATETIME(3) NOT NULL,
-    `deleted_at` DATETIME(3) NULL,
-
-    UNIQUE INDEX `profiles_id_key`(`id`),
-    UNIQUE INDEX `profiles_name_key`(`name`),
-    UNIQUE INDEX `profiles_code_key`(`code`),
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
-CREATE TABLE `profile_permissions` (
-    `id` VARCHAR(191) NOT NULL,
-    `permission` VARCHAR(191) NOT NULL,
-    `description` TEXT NOT NULL,
-    `active` BOOLEAN NOT NULL DEFAULT true,
-    `profile_id` VARCHAR(191) NOT NULL,
-    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `updated_at` DATETIME(3) NOT NULL,
-    `deleted_at` DATETIME(3) NULL,
-
-    UNIQUE INDEX `profile_permissions_id_key`(`id`),
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
 CREATE TABLE `departments` (
     `id` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
@@ -72,7 +40,6 @@ CREATE TABLE `users` (
     `contact` VARCHAR(191) NULL,
     `department_id` VARCHAR(191) NOT NULL,
     `address_id` VARCHAR(191) NOT NULL,
-    `profile_id` VARCHAR(191) NOT NULL,
     `manager_id` VARCHAR(191) NULL,
     `active` BOOLEAN NOT NULL DEFAULT true,
     `avatar` VARCHAR(191) NULL,
@@ -87,6 +54,35 @@ CREATE TABLE `users` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
+CREATE TABLE `permissions` (
+    `id` VARCHAR(191) NOT NULL,
+    `name` VARCHAR(191) NOT NULL,
+    `description` TEXT NOT NULL,
+    `active` BOOLEAN NOT NULL DEFAULT true,
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updated_at` DATETIME(3) NOT NULL,
+    `deleted_at` DATETIME(3) NULL,
+
+    UNIQUE INDEX `permissions_id_key`(`id`),
+    UNIQUE INDEX `permissions_name_key`(`name`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `user_permissions` (
+    `id` VARCHAR(191) NOT NULL,
+    `user_id` VARCHAR(191) NOT NULL,
+    `permission_id` VARCHAR(191) NOT NULL,
+    `active` BOOLEAN NOT NULL DEFAULT true,
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updated_at` DATETIME(3) NOT NULL,
+    `deleted_at` DATETIME(3) NULL,
+
+    UNIQUE INDEX `user_permissions_id_key`(`id`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `signin_logs` (
     `id` VARCHAR(191) NOT NULL,
     `user_id` VARCHAR(191) NOT NULL,
@@ -95,6 +91,22 @@ CREATE TABLE `signin_logs` (
     `deleted_at` DATETIME(3) NULL,
 
     UNIQUE INDEX `signin_logs_id_key`(`id`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `notifications` (
+    `id` VARCHAR(191) NOT NULL,
+    `title` VARCHAR(191) NOT NULL,
+    `description` TEXT NOT NULL,
+    `user_id` VARCHAR(191) NOT NULL,
+    `read` BOOLEAN NOT NULL DEFAULT false,
+    `active` BOOLEAN NOT NULL DEFAULT true,
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updated_at` DATETIME(3) NOT NULL,
+    `deleted_at` DATETIME(3) NULL,
+
+    UNIQUE INDEX `notifications_id_key`(`id`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -194,7 +206,7 @@ CREATE TABLE `incident_categories` (
 -- CreateTable
 CREATE TABLE `incidents` (
     `id` VARCHAR(191) NOT NULL,
-    `code` INTEGER NOT NULL,
+    `code` VARCHAR(191) NOT NULL,
     `title` VARCHAR(191) NOT NULL,
     `description` TEXT NOT NULL,
     `register_by` VARCHAR(191) NOT NULL,
@@ -211,7 +223,6 @@ CREATE TABLE `incidents` (
 
     UNIQUE INDEX `incidents_id_key`(`id`),
     UNIQUE INDEX `incidents_code_key`(`code`),
-    UNIQUE INDEX `incidents_title_key`(`title`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -233,8 +244,10 @@ CREATE TABLE `incident_avatars` (
 CREATE TABLE `incident_logs` (
     `id` VARCHAR(191) NOT NULL,
     `incident_id` VARCHAR(191) NOT NULL,
-    `title` VARCHAR(191) NOT NULL,
-    `description` TEXT NOT NULL,
+    `field` VARCHAR(191) NOT NULL,
+    `old_value` VARCHAR(191) NULL,
+    `new_value` VARCHAR(191) NULL,
+    `user_id` VARCHAR(191) NOT NULL,
     `active` BOOLEAN NOT NULL DEFAULT true,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated_at` DATETIME(3) NOT NULL,
@@ -245,22 +258,25 @@ CREATE TABLE `incident_logs` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
-ALTER TABLE `profile_permissions` ADD CONSTRAINT `profile_permissions_profile_id_fkey` FOREIGN KEY (`profile_id`) REFERENCES `profiles`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE `users` ADD CONSTRAINT `users_department_id_fkey` FOREIGN KEY (`department_id`) REFERENCES `departments`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `users` ADD CONSTRAINT `users_address_id_fkey` FOREIGN KEY (`address_id`) REFERENCES `addresses`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `users` ADD CONSTRAINT `users_profile_id_fkey` FOREIGN KEY (`profile_id`) REFERENCES `profiles`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE `users` ADD CONSTRAINT `users_manager_id_fkey` FOREIGN KEY (`manager_id`) REFERENCES `users`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE `user_permissions` ADD CONSTRAINT `user_permissions_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `user_permissions` ADD CONSTRAINT `user_permissions_permission_id_fkey` FOREIGN KEY (`permission_id`) REFERENCES `permissions`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE `signin_logs` ADD CONSTRAINT `signin_logs_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `notifications` ADD CONSTRAINT `notifications_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `news` ADD CONSTRAINT `news_flag_id_fkey` FOREIGN KEY (`flag_id`) REFERENCES `news_flag`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -294,3 +310,6 @@ ALTER TABLE `incident_avatars` ADD CONSTRAINT `incident_avatars_incident_id_fkey
 
 -- AddForeignKey
 ALTER TABLE `incident_logs` ADD CONSTRAINT `incident_logs_incident_id_fkey` FOREIGN KEY (`incident_id`) REFERENCES `incidents`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `incident_logs` ADD CONSTRAINT `incident_logs_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
