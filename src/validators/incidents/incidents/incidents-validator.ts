@@ -5,7 +5,7 @@ export const incidentsParamsSchema = z.object({
 })
 
 export const getIncidentsFiltersQuerySchema = z.object({
-	code: z.number().optional(),
+	code: z.string().optional(),
 	status_id: z.string().optional(),
 	priority_id: z.string().optional(),
 	assigned_id: z.string().optional(),

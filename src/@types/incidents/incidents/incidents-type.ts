@@ -1,7 +1,7 @@
 import type { Prisma } from '@prisma/client'
 
 export interface GetIncidentsFilters {
-	code?: number
+	code?: string
 	status_id?: string
 	priority_id?: string
 	assigned_id?: string
@@ -10,7 +10,7 @@ export interface GetIncidentsFilters {
 
 export type IncidentBaseResponse = {
 	id: string
-	code: number
+	code: string
 	title: string
 	description: string
 	register_by: string
