@@ -3,28 +3,8 @@ import path from 'node:path'
 
 import prismaClient from '~/config/prisma-client'
 
-import type { CreateIncidentsBody } from '~/@types/index'
-import { cleanString, incidentsPath, saveFile } from '~/helpers/index'
-
-type Avatar = {
-	originalname: string
-	filename: string
-	fieldname: string
-	destination: string
-	path: string
-	encoding: string
-	mimetype: string
-	size: number
-}
-
-type CreateIncidentsParams = {
-	title: string
-	description: string
-	department_name: string
-	category_name: string
-	user_id: string
-	avatars: Avatar[]
-}
+import type { CreateIncidentsBody, CreateIncidentsParams } from '~/@types/index'
+import { cleanString, incidentsPath, saveFile, genUniqueCode } from '~/helpers/index'
 
 export class IncidentsService {
 	async createIncidents({
@@ -69,11 +49,20 @@ export class IncidentsService {
 			})
 			if (!category) throw new Error('A Categoria informada não existe.')
 
-			// TODO: Encontrar forma de cadastrar novamente em casos de erros por requisições simultâneas
-			const generateCode = (await tx.incident.count()) + 1
+			let code: string
+			let exists = true
+
+			do {
+				code = genUniqueCode()
+				const incident = await tx.incident.findFirst({
+					where: { code },
+					select: { id: true },
+				})
+				exists = incident !== null
+			} while (exists)
 
 			const incidentPayload: CreateIncidentsBody = {
-				code: generateCode,
+				code: code,
 				title: title,
 				description: description,
 				register_by: user_id,
