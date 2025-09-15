@@ -23,9 +23,24 @@ class Repository extends RestRepository {
 			where,
 			orderBy: { created_at: 'desc' },
 			include: {
-				priority: { select: { id: true, name: true } },
-				status: { select: { id: true, name: true } },
-				user: { select: { id: true, name: true } },
+				priority: {
+					select: {
+						id: true,
+						name: true,
+					},
+				},
+				status: {
+					select: {
+						id: true,
+						name: true,
+					},
+				},
+				user: {
+					select: {
+						id: true,
+						name: true,
+					},
+				},
 			},
 			skip,
 			take,
@@ -47,14 +62,69 @@ class Repository extends RestRepository {
 		const query = await prismaClient.incident.findFirst({
 			where: { id },
 			include: {
-				category: { select: { id: true, name: true } },
-				department: { select: { id: true, name: true } },
-				priority: { select: { id: true, name: true } },
-				register: { select: { id: true, name: true } },
-				status: { select: { id: true, name: true } },
-				user: { select: { id: true, name: true } },
-				incidentAvatars: { select: { id: true, avatar: true } },
-				incidentLogs: { select: { id: true, title: true, description: true, created_at: true } },
+				category: {
+					select: {
+						id: true,
+						name: true,
+					},
+				},
+				department: {
+					select: {
+						id: true,
+						name: true,
+					},
+				},
+				priority: {
+					select: {
+						id: true,
+						name: true,
+					},
+				},
+				register: {
+					select: {
+						id: true,
+						name: true,
+					},
+				},
+				status: {
+					select: {
+						id: true,
+						name: true,
+					},
+				},
+				user: {
+					select: {
+						id: true,
+						name: true,
+					},
+				},
+				incidentAvatars: {
+					select: {
+						id: true,
+						avatar: true,
+					},
+				},
+				incidentLogs: {
+					select: {
+						id: true,
+						field: true,
+						old_value: true,
+						new_value: true,
+						user: {
+							select: {
+								id: true,
+								name: true,
+								department: {
+									select: {
+										id: true,
+										name: true,
+									},
+								},
+							},
+						},
+						created_at: true,
+					},
+				},
 			},
 		})
 		return query

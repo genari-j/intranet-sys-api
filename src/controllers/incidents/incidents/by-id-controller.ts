@@ -26,20 +26,48 @@ export class IncidentByIdController {
 				deadline: incidentById.deadline,
 				title: incidentById.title,
 				description: incidentById.description,
-				register: { id: incidentById.register.id, name: incidentById.register.name },
-				category: { id: incidentById.category.id, name: incidentById.category.name },
-				priority: { id: incidentById.priority.id, name: incidentById.priority.name },
-				department: { id: incidentById.department.id, name: incidentById.department.name },
-				assigned: { id: incidentById?.user?.id, name: incidentById?.user?.name },
-				status: { id: incidentById.status.id, name: incidentById.status.name },
+				register: {
+					id: incidentById.register.id,
+					name: incidentById.register.name,
+				},
+				category: {
+					id: incidentById.category.id,
+					name: incidentById.category.name,
+				},
+				priority: {
+					id: incidentById.priority.id,
+					name: incidentById.priority.name,
+				},
+				department: {
+					id: incidentById.department.id,
+					name: incidentById.department.name,
+				},
+				assigned: {
+					id: incidentById?.user?.id,
+					name: incidentById?.user?.name,
+				},
+				status: {
+					id: incidentById.status.id,
+					name: incidentById.status.name,
+				},
 				avatars: incidentById.incidentAvatars.map((incAvatar) => ({
 					id: incAvatar.id,
 					avatar: `http://localhost:3002/uploads/incidents/${incAvatar.avatar}`,
 				})),
 				logs: incidentById.incidentLogs.map((incLog) => ({
 					id: incLog.id,
-					title: incLog.title,
-					description: incLog.description,
+					field: incLog.field,
+					old_value: incLog.old_value,
+					new_value: incLog.new_value,
+					changed_by: {
+						id: incLog.user.id,
+						name: incLog.user.name,
+						department: {
+							id: incLog.user.department.id,
+							name: incLog.user.department.name,
+						},
+					},
+					created_at: incLog.created_at,
 				})),
 				created_at: incidentById.created_at,
 				updated_at: incidentById.updated_at,

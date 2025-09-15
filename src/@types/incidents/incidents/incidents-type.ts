@@ -31,6 +31,26 @@ export type CreateIncidentsBody = Omit<
 	'id' | 'assigned_id' | 'deadline' | 'active' | 'created_at' | 'updated_at' | 'deleted_at'
 >
 
+export type Avatar = {
+	originalname: string
+	filename: string
+	fieldname: string
+	destination: string
+	path: string
+	encoding: string
+	mimetype: string
+	size: number
+}
+
+export type CreateIncidentsParams = {
+	title: string
+	description: string
+	department_name: string
+	category_name: string
+	user_id: string
+	avatars: Avatar[]
+}
+
 export type IncidentsWithFKeyResponse = Prisma.IncidentGetPayload<{
 	include: {
 		priority: {
@@ -101,8 +121,22 @@ export type IncidentWithFKeyResponse = Prisma.IncidentGetPayload<{
 		incidentLogs: {
 			select: {
 				id: true
-				title: true
-				description: true
+				field: true
+				old_value: true
+				new_value: true
+				user: {
+					select: {
+						id: true
+						name: true
+						department: {
+							select: {
+								id: true
+								name: true
+							}
+						}
+					}
+				}
+				created_at: true
 			}
 		}
 	}

@@ -50,9 +50,18 @@ export class AllIncidentsController {
 					id: incident.id,
 					code: incident.code,
 					title: incident.title,
-					priority: { id: incident.priority.id, name: incident.priority.name },
-					assigned: { id: incident?.user?.id, name: incident?.user?.name },
-					status: { id: incident.status.id, name: incident.status.name },
+					priority: {
+						id: incident.priority.id,
+						name: incident.priority.name,
+					},
+					assigned: {
+						id: incident?.user?.id,
+						name: incident?.user?.name,
+					},
+					status: {
+						id: incident.status.id,
+						name: incident.status.name,
+					},
 					created_at: incident.created_at,
 				}
 			})
