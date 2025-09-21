@@ -53,7 +53,7 @@ export class IncidentsService {
 			let exists = true
 
 			do {
-				code = genUniqueCode()
+				code = genUniqueCode('T')
 				const incident = await tx.incident.findFirst({
 					where: { code },
 					select: { id: true },
