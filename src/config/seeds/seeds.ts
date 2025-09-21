@@ -2,6 +2,7 @@ import { humanResourcesSeeds } from './human-resources/seed'
 import { incidentsSeeds } from './incidents/seed'
 import { intranetSysSeeds } from './intranet-sys/seed'
 import { newsSeeds } from './news/seed'
+import { purchasesSeeds } from './purchases/seed'
 
 async function execSeeds() {
 	/* ------------------ STARTING ------------------ */
@@ -11,6 +12,7 @@ async function execSeeds() {
 	await newsSeeds()
 	await humanResourcesSeeds()
 	await incidentsSeeds()
+	await purchasesSeeds()
 
 	/* ------------------ FINISHING ------------------ */
 	console.table('Finalização da inserção das seeds 😊')
