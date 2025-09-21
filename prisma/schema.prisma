@@ -243,6 +243,7 @@ model Incident {
 
   incidentAvatars IncidentAvatar[]
   incidentLogs    IncidentLog[]
+  Purchase        Purchase[]
 
   @@map("incidents")
 }
@@ -275,4 +276,37 @@ model IncidentLog {
   deleted_at  DateTime?
 
   @@map("incident_logs")
+}
+
+// PURCHASES SYSTEM
+model Purchase {
+  id            String    @id @unique @default(uuid())
+  code          String    @unique
+  item          String
+  amount        Int
+  purchase_link String?
+  description   String?   @db.Text
+  incident      Incident? @relation(fields: [incident_id], references: [id])
+  incident_id   String?
+  active        Boolean   @default(true)
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
+  deleted_at    DateTime?
+
+  PurchaseAvatar PurchaseAvatar[]
+
+  @@map("purchases")
+}
+
+model PurchaseAvatar {
+  id          String    @id @unique @default(uuid())
+  purchase    Purchase  @relation(fields: [purchase_id], references: [id])
+  purchase_id String
+  avatar      String
+  active      Boolean   @default(true)
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+  deleted_at  DateTime?
+
+  @@map("purchase_avatars")
 }
