@@ -14,7 +14,7 @@
 
 </div>
 
-### 📘 Visão Geral da API
+### 📘 Visão Geral - API
 
 Esta API foi desenvolvida utilizando Fastify e TypeScript, com o objetivo de centralizar e unificar as funcionalidades dos principais sistemas internos de uma organização. A estrutura do projeto foi desenhada para ser modular, clara e escalável, agrupando as regras de negócio em pastas por domínio: Controllers, Repositories, Routes e UseCases.
 
@@ -28,6 +28,7 @@ A aplicação está utilizando como principais tecnologias: **[Node](https://nod
 - [Instalação](#instalação)
 - [Usabilidade](#usabilidade)
 - [Autenticação](#autenticação)
+- [Notificações](#notificações)
 - [Database](#database)
 
 #### Sistemas
@@ -90,7 +91,7 @@ Cada sistema possui suporte completo para as operações CRUD (Create, Read, Upd
 1. Para acessar a aplicação, basta utilizar o usuário administrador criado pela própria seed de usuários:
     - Credenciais -> `Login: 00511` e `Senha: 123456`
 
-2. O sistema está lidando com permissões de usuários. Ao criar um usuário, são definidas também suas permissões. Dependendo do nível de rota acessada, as funcionalidades estarão liberados somente se a permissão tiver sido concedida na criação do usuário.
+2. O sistema está lidando com permissões de usuários. Ao criar um usuário, são definidas também suas permissões. Dependendo do nível de rota acessada, as funcionalidades estarão liberadas somente se a permissão tiver sido concedida na criação do usuário.
 
 3. Como está funcionando o sistema de permissões? Com base no exemplo abaixo, o usuário terá acesso a permissão de deletar notícias se assim for adicionado no momento da criação de seu usuário
     - Há uma Tabela no Banco guardando as permissões:
@@ -101,6 +102,17 @@ Cada sistema possui suporte completo para as operações CRUD (Create, Read, Upd
 4. Como eu poderia criar uma permissão nova?
     - Acesse a Tabela `permissions` e adicione uma nova permissão.
     - Acesse a Tabela `user_permissions` e adicione o relacionamento entre `user_id` e `permission_id`
+
+#### Notificações
+
+As notificações em tempo real são uma parte essencial do sistema, proporcionando uma comunicação instantânea entre a aplicação e os usuários. O sistema utiliza `Socket.IO` para transmitir notificações aos usuários com base em eventos específicos que acontecem dentro da aplicação. Essas notificações são disparadas de forma dinâmica e direcionada, podendo ser enviadas para um ou mais usuários dependendo da ação realizada.
+
+1. Exemplos de Ações que Disparam Notificações:
+
+    - Notícias: Quando uma nova notícia é cadastrada no sistema, todos os usuários que têm acesso à plataforma recebem uma notificação.
+    - Chamados: Quando um chamado é aberto por qualquer usuário, as pessoas envolvidas no processo (ex: solicitante, equipe responsável) recebem uma notificação.
+    - Mudanças: Sempre que há uma atualização em um chamado (como mudança de status, atribuição de um responsável, etc.), todos os usuários envolvidos recebem notificações.
+    - Compras: Quando uma solicitação de compra é registrada, as partes envolvidas no processo (responsável pela aprovação ou a equipe de compras) recebem uma notificação.
 
 #### Database
 É recomendável utilizar o [MySQL](https://www.mysql.com/) como Banco de Dados. Abaixo está listado novamente os comandos para lidar com Migrações e Seeds.
